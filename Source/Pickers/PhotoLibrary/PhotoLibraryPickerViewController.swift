@@ -188,6 +188,9 @@ final class PhotoLibraryPickerViewController: UIViewController {
                 self.alertController?.dismiss(animated: true)
             }
             alert.show()
+            
+        case .limited:
+            print("checkStatus case limited")
         }
     }
     

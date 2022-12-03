@@ -110,7 +110,7 @@ open class VerticalScrollFlowLayout: UICollectionViewFlowLayout {
 	}
 	
     override open func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        return dynamicAnimator.layoutAttributesForCell(at: indexPath)!
+        return dynamicAnimator.layoutAttributesForCell(at: indexPath) ?? nil
     }
     
     override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
@@ -120,7 +120,7 @@ open class VerticalScrollFlowLayout: UICollectionViewFlowLayout {
         
         let touchLocation = collectionView!.panGestureRecognizer.location(in: collectionView)
         
-        dynamicAnimator.behaviors.flatMap { $0 as? UIAttachmentBehavior }.forEach { behavior in
+        dynamicAnimator.behaviors.compactMap { $0 as? UIAttachmentBehavior }.forEach { behavior in
             let attrs = behavior.items.first as! UICollectionViewLayoutAttributes
             attrs.center = getUpdatedBehaviorItemCenter(behavior: behavior, touchLocation: touchLocation)
             self.dynamicAnimator.updateItem(usingCurrentState: attrs)
